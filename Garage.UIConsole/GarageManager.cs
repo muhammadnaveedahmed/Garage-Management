@@ -29,7 +29,7 @@ public class GarageManager
     void ShowMainMenu()
     {
         consoleUI.Clear();
-        consoleUI.AddMessage("Show Main Menue by using following Numbers \n(1, 2, 3, ..., 8, 0) som du väljer med hjälp av numeriska tangenter"
+        consoleUI.AddMessage("Show Main Menue by using following Numbers \n(1, 2, 3, ..., 8, 0) which you select using numeric keys"
                 + "\n1.The Installation of The New Garage"
                 + "\n2.The Installation of the new garage with the number of Vehicles"
                 + "\n3.The List of All Parked Vehicles"
@@ -71,17 +71,17 @@ public class GarageManager
     void CreateGarage(IEnumerable<IVehicle>? vehicles = null)
     {
         consoleUI.Clear();
-        consoleUI.AddMessage("Instansieringen av ett nytt garage");
+        consoleUI.AddMessage("The Installation of The New Garage");
 
-        uint capacity = ConsoleUI<uint>.AskForAnInput("Kapacitet?");
+        uint capacity = ConsoleUI<uint>.AskForAnInput("Capacity?");
 
         garageHandler = new(capacity, vehicles);
 
         var remaindeCapacity = capacity - (vehicles is null ? 0 : vehicles.Count());
 
-        consoleUI.AddMessage($"Garaget har {remaindeCapacity} kapacitet kvar");
+        consoleUI.AddMessage($"Garage has {remaindeCapacity} capacity left");
 
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone Going back to the Main Menue");
         consoleUI.GetKey();
 
     }
@@ -89,7 +89,7 @@ public class GarageManager
     void CreateGarageWithVehicles()
     {
         consoleUI.Clear();
-        consoleUI.AddMessage("Instansieringen av ett nytt garage med ett antal fordon");
+        consoleUI.AddMessage("The Installation of the new garage with the number of Vehicles");
 
         var vehicles = this.CreateVehicles();
         CreateGarage(vehicles);
@@ -100,14 +100,14 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Lista samtliga parkerade fordon");
+        consoleUI.AddMessage("The List of All Parked Vehicles");
 
         var vehicles = garageHandler.GetVehicles();
         foreach (var vehicle in vehicles)
         {
             consoleUI.AddMessage(vehicle.Stats() + " \n\r");
         }
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone Going back to the Main Menue");
         consoleUI.GetKey();
     }
 
@@ -116,15 +116,15 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Lista fordonstyper och hur många av varje som står i garaget");
+        consoleUI.AddMessage("The List of Vehicle types and how many of each are in the Garage");
 
         var vehicleGroups = garageHandler.GetVehicles().GroupBy(x => x.GetType().Name).Select(x => new { Type = x.Key, Count = x.Count() });
         foreach (var vehicleGroup in vehicleGroups)
         {
-            consoleUI.AddMessage($"Fordonstyp: {vehicleGroup.Type}, {vehicleGroup.Count} st\n\r");
+            consoleUI.AddMessage($"Vehicle Type: {vehicleGroup.Type}, {vehicleGroup.Count} st\n\r");
         }
 
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone Going back to the Main Menue");
         consoleUI.GetKey();
     }
 
@@ -133,15 +133,15 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Lägga till fordon");
+        consoleUI.AddMessage("Add The Vehicle");
 
         var vehicle = this.CreateVehicle();
         if (vehicle is not null)
         {
             if (garageHandler.AddVehicle(vehicle))
-                consoleUI.AddMessage("Fordonet läggs till garaget");
+                consoleUI.AddMessage("The Vehicle is added to the Garage");
 
-            consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+            consoleUI.AddMessage("Someone Going back to the Main Menue");
             consoleUI.GetKey();
         }
     }
@@ -187,13 +187,13 @@ public class GarageManager
 
     (string, string, uint, VehicleType, uint?, uint?, uint?, bool?, uint?)? AskForVehicle()
     {
-        consoleUI.AddMessage("Vilket typ av fordon?"
-                    + "\n1.Airplain"
+        consoleUI.AddMessage("Which Type of Vehicle?"
+                    + "\n1.Airplane"
                     + "\n2.Boat"
                     + "\n3.Bus"
                     + "\n4.Car"
                     + "\n5.MotorCycle"
-                    + "\nTomt att klara");
+                    + "\nEmpty to manage");
 
         string? input = Console.ReadLine();
         ArgumentNullException.ThrowIfNull(input);
@@ -204,11 +204,11 @@ public class GarageManager
         // ToDo: out of range VehicleType
         var vehicleType = (VehicleType)(int.Parse(input) - 1);
 
-        string registerNumber = ConsoleUI<string>.AskForAnInput("Registreringsnummer?");
+        string registerNumber = ConsoleUI<string>.AskForAnInput("Registrationsnumber?");
 
-        string color = ConsoleUI<string>.AskForAnInput("Färg?");
+        string color = ConsoleUI<string>.AskForAnInput("Color?");
 
-        uint numberOfWheels = ConsoleUI<uint>.AskForAnInput("Antal hjul?");
+        uint numberOfWheels = ConsoleUI<uint>.AskForAnInput("Number of Wheels?");
 
 
         uint? wingSpan = null;
@@ -217,11 +217,11 @@ public class GarageManager
         bool? hasOneLessWheelSuspension = null;
         uint? topBoxCapacity = null;
         // ToDo: ArgumentException
-        if (vehicleType == VehicleType.Airplain) wingSpan = ConsoleUI<uint>.AskForAnInput("Ving spann?");
-        else if (vehicleType == VehicleType.Boat) hullType = ConsoleUI<uint>.AskForAnInput("Skrov typ?");
-        else if (vehicleType == VehicleType.Bus) busType = ConsoleUI<uint>.AskForAnInput("Buss typ?");
-        else if (vehicleType == VehicleType.Car) hasOneLessWheelSuspension = ConsoleUI<bool>.AskForAnInput("Har en hjulupphängning mindre? Ja=j, Nej=n", "Ja=j, Nej=n");
-        else if (vehicleType == VehicleType.Motorcycle) topBoxCapacity = ConsoleUI<uint>.AskForAnInput("Toppboxens kapacitet?");
+        if (vehicleType == VehicleType.Airplane) wingSpan = ConsoleUI<uint>.AskForAnInput("Wing Span?");
+        else if (vehicleType == VehicleType.Boat) hullType = ConsoleUI<uint>.AskForAnInput("Hull Type?");
+        else if (vehicleType == VehicleType.Bus) busType = ConsoleUI<uint>.AskForAnInput("Buss Type?");
+        else if (vehicleType == VehicleType.Car) hasOneLessWheelSuspension = ConsoleUI<bool>.AskForAnInput("Has a smaller wheel suspension? Ja=j, Nej=n", "Ja=j, Nej=n");
+        else if (vehicleType == VehicleType.Motorcycle) topBoxCapacity = ConsoleUI<uint>.AskForAnInput("The capacity of the Top Box?");
         else throw new NotImplementedException();
 
         // ToDo: fix converting
@@ -236,9 +236,9 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Ta bort fordon ur garaget");
+        consoleUI.AddMessage("Remove Vehicle from the Garage");
 
-        string registerNumber = ConsoleUI<string>.AskForAnInput("Registreringsnummer?");
+        string registerNumber = ConsoleUI<string>.AskForAnInput("RegistrationsNumber?");
 
         // ToDo: Could not find the vehicle
         var vehicle = garageHandler.GetVehicleByRegisterNumber(registerNumber);
@@ -246,9 +246,9 @@ public class GarageManager
 
         garageHandler.RemoveVehicle(vehicle);
 
-        consoleUI.AddMessage("Fordonet tas bort ur garaget");
+        consoleUI.AddMessage("The Vehicle is removed from the Garage");
 
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone going back to Main Menue");
         consoleUI.GetKey();
     }
 
@@ -257,16 +257,16 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Hitta ett specifikt fordon");
+        consoleUI.AddMessage("Search a specific Vehicle");
 
-        string registerNumber = ConsoleUI<string>.AskForAnInput("Registreringsnummer?");
+        string registerNumber = ConsoleUI<string>.AskForAnInput("Registrationsnumber?");
 
         // ToDo: Could not find the vehicle
         var vehicle = garageHandler.GetVehicleByRegisterNumber(registerNumber);
         ArgumentNullException.ThrowIfNull(vehicle);
 
         consoleUI.AddMessage(vehicle.Stats());
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone going back to Main Menue");
         consoleUI.GetKey();
     }
 
@@ -275,9 +275,9 @@ public class GarageManager
         ArgumentNullException.ThrowIfNull(garageHandler);
 
         consoleUI.Clear();
-        consoleUI.AddMessage("Filtrera fordon");
+        consoleUI.AddMessage("Filter Vehicle");
 
-        string keyword = ConsoleUI<string>.AskForAnInput("Sökord?");
+        string keyword = ConsoleUI<string>.AskForAnInput("Keywords?");
 
         // ToDo: Could not find the vehicle
         var vehicles = garageHandler.FilterVehiclesByKeyword(keyword);
@@ -285,14 +285,14 @@ public class GarageManager
 
         vehicles.ToList<IVehicle>().ForEach(x => consoleUI.AddMessage(x.Stats() + "\n\r"));
 
-        consoleUI.AddMessage("Något att gå tillbaka till huvudmeny");
+        consoleUI.AddMessage("Someone going back to Main Menue");
         consoleUI.GetKey();
     }
 
     void ClosePrograme()
     {
         consoleUI.Clear();
-        consoleUI.AddMessage("Stängs");
+        consoleUI.AddMessage("Closed");
         Environment.Exit(0);
     }
 

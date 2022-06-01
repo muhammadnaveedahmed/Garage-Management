@@ -13,5 +13,6 @@ namespace Garage.Common
         Bus,
         Car,
         Motorcycle,
+        Airplane,
     }
 }

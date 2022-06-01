@@ -46,7 +46,7 @@ public class GarageHandler
     {
         var result = vehicleType switch
         {
-            VehicleType.Airplain => CreateAirplane(vehicle, wingSpan!.Value),
+            VehicleType.Airplane => CreateAirplane(vehicle, wingSpan!.Value),
             VehicleType.Boat => CreateBoat(vehicle, hullType!.Value),
             VehicleType.Bus => CreateBus(vehicle, busType!.Value),
             VehicleType.Car => CreateCar(vehicle, hasOneLessWheelSuspension!.Value),
