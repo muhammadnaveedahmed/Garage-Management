@@ -14,13 +14,13 @@ public class ConsoleUI : IUI
 }
 public class ConsoleUI<T>
 {
-    //infoPrompt används för den första prompten. errorPrompt används för ogiltig inmatning.
+    //infoPrompt is used for the first prompt. errorPrompt is used for invalid input.
     public static T AskForAnInput(string infoPrompt, string? errorPrompt = null)
     {
         if (errorPrompt is null) errorPrompt = infoPrompt;
         T result;
 
-        //Det är specialt för string type annars fick vi runtime fel.
+        //It is special for string type otherwise we got runtime error.
         if (typeof(T) == typeof(string)) result = (T)Activator.CreateInstance(typeof(T), string.Empty.ToCharArray())!;
         else result = Activator.CreateInstance<T>();
 
@@ -41,16 +41,16 @@ public class ConsoleUI<T>
                     if (answer.ToLower()[0] == 'j') answer = "true";
                     else if (answer.ToLower()[0] == 'n') answer = "false";
 
-                //Om appen inte kan ändra den önskade typen ger den ett exception. Så vi måste hantera det med try-catch.
+                //If the app can not change the desired type, it gives an exception. So we have to deal with it with try-catch.
                 result = (T)Convert.ChangeType(answer, typeof(T))!;
-                //Om användaren inte anger en ingång gör vi ett exception för att göra samma sak eftersom det är en ogiltig inmatning.
+                //If the user does not enter an entry, we make an exception to do the same thing because it is an invalid entry.
 
 
                 success = true;
             }
             catch
             {
-                Console.WriteLine($"Du bör skriva upp {errorPrompt}");
+                Console.WriteLine($"We Should write up {errorPrompt}");
             }
 
         } while (!success);
