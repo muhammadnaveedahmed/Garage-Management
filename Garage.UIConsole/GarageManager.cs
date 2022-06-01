@@ -47,15 +47,15 @@ public class GarageManager
 
         var actionMeny = new Dictionary<ConsoleKey, Action>()
                 {
-                    {ConsoleKey.NumPad1,CreateGarage },
-                    {ConsoleKey.NumPad2,CreateGarageWithVehicles },
-                    {ConsoleKey.NumPad3,ListOfVehicles },
-                    {ConsoleKey.NumPad4,ListOfVehicleTypes},
-                    {ConsoleKey.NumPad5,AddVehicle },
-                    {ConsoleKey.NumPad6,RemoveVehicle},
-                    {ConsoleKey.NumPad7,FindVehicle},
-                    {ConsoleKey.NumPad8,FilterVehicles },
-                    {ConsoleKey.NumPad0,ClosePrograme },
+                    {ConsoleKey.D1,CreateGarage },
+                    {ConsoleKey.D2,CreateGarageWithVehicles },
+                    {ConsoleKey.D3,ListOfVehicles },
+                    {ConsoleKey.D4,ListOfVehicleTypes},
+                    {ConsoleKey.D5,AddVehicle },
+                    {ConsoleKey.D6,RemoveVehicle},
+                    {ConsoleKey.D7,FindVehicle},
+                    {ConsoleKey.D8,FilterVehicles },
+                    {ConsoleKey.D0,ClosePrograme },
                 };
 
         if (actionMeny.ContainsKey(keyPressed))
