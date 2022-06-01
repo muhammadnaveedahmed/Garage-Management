@@ -9,7 +9,7 @@ public class Car : Vehicle
                     uint numberOfWheels,
                     bool hasOneLessWheelSuspension) : base(registerNumber, color, numberOfWheels) => HasOneLessWheelSuspension = hasOneLessWheelSuspension;
 
-    public override string Stats() => $"{base.Stats()}Har en hjulupphängning mindre?{(HasOneLessWheelSuspension ? "Ja" : "Nej")}";
+    public override string Stats() => $"{base.Stats()}Has a smaller wheel suspension?{(HasOneLessWheelSuspension ? "Ja" : "Nej")}";
     public override bool Matches(ref string keyword) => base.Matches(ref keyword) || HasOneLessWheelSuspension.ToString() == keyword;
 
 }

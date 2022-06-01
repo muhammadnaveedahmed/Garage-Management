@@ -13,7 +13,7 @@ public abstract class Vehicle : IVehicle
         NumberOfWheels = numberOfWheels;
     }
 
-    public virtual string Stats() => $"Vehicle:{GetType().Name}\n\rRegistreringsnummer:{RegisterNumber}\n\rFärg:{Color}\n\rAntal hjul:{NumberOfWheels}\n\r";
+    public virtual string Stats() => $"Vehicle:{GetType().Name}\n\rRegistrations Number:{RegisterNumber}\n\rFärg:{Color}\n\rAntal hjul:{NumberOfWheels}\n\r";
         public virtual bool Matches(ref string keyword)
     {
         keyword = keyword.Trim().ToLower();

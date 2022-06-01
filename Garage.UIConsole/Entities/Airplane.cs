@@ -9,6 +9,6 @@ public class Airplane : Vehicle
                     uint numberOfWheels,
                     uint wingSpan) : base(registerNumber, color, numberOfWheels) => WingSpan = wingSpan;
 
-    public override string Stats() => $"{base.Stats()}Ving spann:{WingSpan}";
+    public override string Stats() => $"{base.Stats()}Wing Span:{WingSpan}";
         public override bool Matches(ref string keyword) => base.Matches(ref keyword) || WingSpan.ToString() == keyword;
 }
